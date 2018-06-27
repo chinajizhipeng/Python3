@@ -1,0 +1,28 @@
+from lxml import etree
+import re
+html = etree.parse('http://doc.chacuo.net/iso-3166-1',etree.HTMLParser())
+trs=html.xpath('//tr')
+iso_eng = {}
+iso_chn = {}
+for tr in trs:
+    iso3 = tr.xpath("td[2]/text()")
+    iso3 = str(iso3)
+    iso3 = iso3[2:-2]
+    print("get %s"%iso3)
+    eng_name = tr.xpath('td[5]/text()')
+    eng_name = str(eng_name)
+    eng_name = eng_name[2:-2]
+    chn_name = tr.xpath('td[6]/text()')
+    chn_name = str(chn_name)
+    chn_name = chn_name[2:-2]
+    iso_eng['%s'%eng_name]=iso3
+    iso_chn['%s'%chn_name]=iso3
+    
+import pandas as pd
+eng_df = pd.DataFrame(list(iso_eng.items()), columns=['eng', 'iso3'])
+chn_df = pd.DataFrame(list(iso_chn.items()), columns=['chn', 'iso3'])
+eng_df = eng_df[1:]
+chn_df = chn_df[1:]
+
+merge_df = pd.merge(chn_df,eng_df,on = "iso3")
+merge_df.to_excel("iso国家代码.xls",index=False,encoding="utf-8")
