@@ -1,0 +1,177 @@
+#操作系统：直接控制硬件，接受软件操作。
+发行版和内核版（稳定版和开发版）
+
+/斜杠
+\反斜杠
+/：根目录 最顶层目录
+/home：系统默认的用户家目录 新增用户账号时，用户的家目录都存放在目录
+/user: 应用程序存放目录
+相对路径：file
+绝对路径：/home/python/file
+-基本命令：
+ -基本格式：
+ command [-option] [parameter]
+pwd #查看当前目录 绝对路径
+tab #自动补全文件名 若有重复的摁两下
+ls #显示当前目录下的文件
+ls file #当前目录下file下的文件
+ls /file #查看根目录下的file下的文件
+ls -a #把隐藏的文件也显示出来 以.开头
+ls -l #每一行一个文件
+ls -l -h#每一行一个文件,将大小以KB MB GB显示
+ls -alh #包含以上全部
+ls *.txt #显示后缀是txt结尾的 *.* py* *通配符 任意
+ls ?.txt #?一个任意字符 若文件叫*.txt \*
+ls *.t[xn]t #从x和n中取一个
+ls *.t[a-f]t #abcdefn 必须连续 
+ls > example.txt #重定向 将ls输出的内容至example.txt中
+ls -alh > example.txt #如果没有example则创建，若存在则清除后再保存
+ls -alh >> example.txt #不清除之前的文件
+touch example.txt #使用touch创建一个文件 linux没有后缀的说法
+touch 01.py
+more filename.txt #分屏显示内容 按空格继续显示内容
+gedit filename.txt #打开文件
+| #管道 连接2个命令 暂时存储前面的内容，后面的命令从管道里拿
+ls -alh | more 
+clear #清屏
+cd path#切换目录
+cd .. #返回上级目录并切换
+..  #返回上一层路径
+.   #当前路径
+cd ../.. #上两层路径
+cd - #上一次操作的路径
+cd ~ #当前用户的家目录
+mkdir dirname #创建文件夹
+mkdir a/b/c -P #创建文件夹a包含b包含c
+tree #目录树
+more file.txt #查看文件的内容
+rmdir dirname #删除空文件夹
+rm filename #命令删除的文件不会进回收站
+rm dirname -r #若非要删文件夹
+rm 1.txt -i #确定是否删除
+rm 1.txt -f #强制删除
+ln #建立链接文件 相当于windows中的创建快捷键
+ -使用格式
+ ln 源文件 链接文件 #硬链接，两个文件占用相同的内存，只能链接文件，不能链接目录，一方修改另一方也修改。
+ ln -s 源文件 链接文件 #软连接，不占用磁盘空间，源文件删除链接文件失效
+cat #查看或者合并文件内容 不分页 显示在终端
+  cat -n filename #显示行号 
+  cat /docs/doc.txt #绝对路径
+  cat 01.txt > 02.txt #类似复制的功能
+  cat 01.txt 02.txt #将01和02的内容打印到终端上 顺序问题
+  cat 01.txt 02.txt > 03.txt #将01和02的内容合并到03文件
+  cat 01.txt 02.txt >> 03.txt #将01和02的内容追加到03文件
+head -n 2 filename #查看前2行文件
+tail -n 2 filename #查看后2行文件
+
+grep #查找文件内容
+ grep -n '^a' filename.txt #搜索文件中的内容 在‘’中输入正则表达式 -n为行号
+ grep -i '^a' filename.txt #忽略大小写
+ grep -v 'a' filename.txt #不包含a的行
+help #获取帮助文档
+ ls --help #查看ls的帮助
+man ls #查看帮助手册
+history #查看历史命令
+find #查找文件
+ find ./dir -name '0*' #查找文件 在''中可添加正则表达式
+ find / -name '*n*' #搜索整个根目录
+ find / -size +2M #查找大于2M的文件
+ find /temp -size +4k -size -5M #大于4k小于5M
+cp #复制
+ cp 01.txt 02.txt #复制文件
+ cp a* ./b #将a开头的所有文件复制到b文件中去
+ cp a b -r #将a目录复制到b里
+ cp a/* b #将a中的文件复制到b中
+ cp a/* b -v #有拷贝的过程
+mv #移动文件 -f 禁止交互式操作 -i如有覆盖提示 -v显示移动精度
+ mv b a 
+ mv a/b . 
+ mv 05.txt 06.txt #相当于重命名
+tar #归档 -c打包 -v显示进度 -f指定文件名称 -t列出包含文件 -x解开文件 仅是打包没有压缩
+ tar -cvf test.tar * #把当前路径里的文件全部打包
+ tar -xvf test.tar #解包文件 
+gzip #压缩文档 -d解压 -r压缩所有子目录
+ gzip Text.tar #将打包文件压缩
+ gzip -d Text.tar.gz #解压缩
+tar -zcvf test.tar.gz * #将当前路径的所有文件及文件夹直接打包并且压缩打包test.tar.gz中
+tar -zxvf test.tar.gz   #将test.tar.gz先解压后解包
+tar -zxvf test.tar.gz -C path/   #指定解压路径
+tar -jcvf test.tar.ba2 * #将当前路径的所有文件及文件夹直接打包并且压缩打包test.tar.gz中
+tar -jxvf test.tar.bz2   #将test.tar.ba2先解压后解包
+tar -jxvf test.tar.bz2 -C path/   #指定解压路径
+zip [-r] 目标文件 源文件 #压缩文件 -r可有可无 
+unzip -d 解压后的文件目录 压缩文件 #解压 若指定文件夹不存在则自动创建
+which ls #查看命令位置
+-用户、权限管理
+ifconfig #显示当前网络连接的信息
+ping 1321.5465.5465 #测试网络间接是否正常
+ssh 用户名@ip地址 #远程登陆
+who #当前在多少人在登陆系统
+who -q #用户数
+whoami #当前终端的用户
+exit # 退出登陆
+useradd #添加用户账号 -m自动创建用户的家目录 -d指定的家目录 用户名和家目录的名称一样
+ useradd 用户名 -m -d /home/用户名
+ sudo useradd 用户名 -m -d /home/用户名 #只要权限不够加sudo
+ useradd -d /home/a a -g test -m #创建一个用户a 目录在/home/a 并属于test组
+passwd 用户名 #给jizhipeng这个用户修改密码 可能用sudo
+su 用户名 #切换用户
+su - 用户名 #主动切换家目录
+userdel 用户名 #删除用户，但不会删除主目录，在home目录下删除
+userdel -r 用户名 #删除用户，同时删除用户的主目录
+sudo -s #进入root #结尾是超级管理员
+groupmod + 三次tab #查看用户组
+cat /etc/group #查看用户组
+groupadd YYY #添加用户组
+groupdel YYY #删除用户组
+usermod -g 用户组 用户名 #将用户名移动到用户组 主组
+usermod -a -G 用户组 用户名 #将用户名添加到用户组 可以分属不同的组
+【usermod -a -G adm 用户名
+  usermod -a -G sudo 用户名】 #使用用户拥有sudo权限
+groups 用户名 #查看用户所在的用户组 
+chmod #修改权限
+文件拥有者权限+所属同组用户权限+其他人权限
+r1 read w2 write x4 execute(执行) - 没有
+chmod u/g/o/a +/-/= rwx文件
+ u 文件所有者 
+ g 所属同组用户
+ o 其他人
+ a 三者
+ + 增加权限
+ - 减少权限
+ = 设定权限
+ chmod u+x test.txt
+ chmod u=rwx g=rw o=r 01.py 
+ chmod 761 01.py #同上
+ 当修改文件夹的权限时，只修改文件夹，不修改文件家里面的权限
+ chmod 777 123 -R #非要修改123文件里的权限  
+chown #修改文件所有者
+ chown username file 
+chgrp #修改文件所属组
+ chgrp groupname file 
+
+系统命令
+cal #查看当前日历
+ cal -y #年
+date #设置或显示时间
+ps #查看当前进程情况
+ ps -aux #所有进程
+ ps top #动态的显示内存的显示情况 q退出
+kill #杀死进程
+ kill 10236 #先查ps -aux查看进程序列
+ kill -9 10236 #-9能杀99%的程序
+reboot #重启操作系统
+shutdown #重启操作系统 会给别的用户提示
+shutdown -h 20:00 #20:00定时关机
+shutdown -h +10 #十分钟后关机
+init 0 #关机
+init 6 #重启
+df #查看磁盘
+ df -m 
+du #查看目录的大小
+ifconfig #查看网卡信息
+gedit #文本编辑器
+
+vim文本编辑器
+#一进去是命令模式
+i a o 进入插入模式

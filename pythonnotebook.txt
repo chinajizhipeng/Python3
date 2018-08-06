@@ -1,0 +1,537 @@
+##函数
+##类与对象
+面向过程：考虑过程，所有功能都要考虑。
+面向对象：将数据与函数绑定到一起进行封装，让有能力的对象去解决。
+类的三部分：类的名称、类的属性、类的方法
+类：类名；属性（一组数据）；方法：允许进行操作的行为（函数）
+类的抽象：一般名词都是类，对类进行抽象。
+创建对象：
+class class_name(object)：#不用加括号
+    #属性
+    #方法
+    def fun(self):
+        XX 
+o = class_name()
+class test(object): #新式类，多一些功能
+class test: #经典类
+类名：规则 大驼峰
+给一个对象添加属性的方法：对象名.新属性名 = value
+获取这个对象的属性：1、对象.属性 2、定义一个方法（先添加对象的属性名），这个方法中 使用self.属性
+如果想通过方法访问对象的属性，需要用self.属性
+调用属性不用加小括号。调用方法需要使用小括号
+tom.name = "Tom" #给tom添加一个属性
+#__init__方法，初始化方法
+__init__(self,n1,n2,n3) #当创建完一个对象后，立马会自动调用，初始化。
+类名(x1,x2,x3) #赋值给n1,n2,n3
+class name:
+    def __init__(self,n1,n2,n3) #初始化对象
+    self.n1 = 1
+    self.n2 = 2
+    self.n3 = 3
+    fun()
+A = name(1,2,3)
+self:对象自己
+
+魔法方法：具有特殊功能的方法
+id() #看到实际存储位置
+def __str__(self):
+    return ‘’  #写什么东西  print(ob)就出来什么结果。一般用来获取描述性信息
+调动属性时一定要通过方法调用
+先加功能！再减功能！
+一个属性对应两个方法，set,get方法
+
+#私有属性 __name,不能再外部获取。 对象名.属性名。设定是要有设定方法和返回方法（内部可以调用）
+设定满足条件时才能调用
+class A:
+	def __send_msg(self):
+		print("发送邮件")
+	def send_msg(self,money):
+		if money > 1000：
+			self.__end_msg()
+			else:
+				print("请充值")
+a = A()
+a.send_msg(100)
+
+class Person(object):
+    def __init__(self):
+        self.__name = "jizhipeng"
+    def setname(self,newname):
+        self.__name = newname
+    def getname(self):
+        return self.__name
+    name= property(getname,setname)
+a.name = 'JJJ' #property 直接能使用了 相当于t.setname('JJJ')
+print(a.name) #直接打印能用了 相当于t.getname()
+
+class Person(object):
+    def __init__(self):
+        self.__name = "jizhipeng"
+    @property
+    def name(self): #name一样
+        return self.__name
+    @name.setter    #name一样
+    def name(self,newname):
+        self.__name = newname
+t = Person()
+t.name = "CHN"
+print(t.name)
+
+不管是属性和方法，只有加两个下划线，就是私有，不能外部访问
+
+接口 就是调用函数
+没有带下划线的方法就叫接口。提供了实现某些功能的方法，直接调用。
+dir(A) #显示定义的私有属性 就可以调了
+
+#__del__()方法  #删除（引用计数器为0时）时调用。还有其他引用时，程序退出（释放内存）时打印。
+class a(object):
+    def __init__(self,name,age):
+        self.__name = name
+        self.__age = age
+    
+    def __del__(self):
+        print('已删除')
+        
+laowang  =a('老王',30)
+print('准备删除')
+del laowang
+
+PY有自动回收垃圾的机制
+import sys
+sys.getrefcount() #查看引用计数器 比实际个数大1
+引用计数器=0后，PY自动回收垃圾
+申请了地址空间一定要释放空间
+
+#继承
+class name(name1):  #name继承自name1类
+父类中有私有属性或者方法，子类将不继承
+子类自己定义属性或者方法调用父类的私有属性或方法，子类调用将发生异常
+如果在父类里有个方法，调用私有属性和私有方法，继承这个方法子类就可以调用父类的私有属性。
+
+如果子类不想继承父类一个方法/属性，在子类中重新写父类这个方法
+super().fun() #调用父类的方法
+
+#多继承 def name(name1,name2):
+若多个父类中有同名的方法：先继承的谁，就调用谁的方法
+print(C.__mro__) #打印C类的对象搜索方法时的先后顺序
+class test(object): #新式类
+class test: #经典类
+#重写
+继承后修改属性或者方法，直接在子类改，覆盖父类的方法或属性
+在子类方法中若需要父类的方法，直接调用父类的方法。【调用父类的方法】
+class xx(XX):
+	def bark(self):
+		print("汪汪")
+		#第一种 直接调用父类的方法
+		Dog.bark(self) #调用时必须加self
+		#第二种
+		super().bark() #没有self
+#多态：传入的对象不一样，调用的方法就不一样。执行的时候根据对象是谁再确定调用哪个方法
+一个父类A类或子类B类都有同一个方法C（B类添加后），调用哪个类，使用哪个方法C，随着对象变化，函数结果发生变化（弱语言）
+
+面向对象的三个特写：封装（将函数和属性打包成一个对象）、继承、多态
+#类属性和实例属性：
+class name:
+    num = 1 #类属性
+    def __init__(self):
+        self.num1 = 1 # 实例属性
+用对象访问类属性是可以的，但常用的方法是类访问类属性。
+类属性在不同实例对象间共享。
+class Tool(object):
+	num = 0
+	def __init__(self,new_name):
+		self.name = new_name
+		Tool.num +=1 #使用类的方法
+tool1 = Tool("铁锹")
+tool2 = Tool("铲子") #num =2
+如果类属性和实例属性的名字相同，那么通过对象获取属性的时候，返回的是实例属性。
+#静态方法和类方法：
+用类方法修改类属性
+用实例方法修改实例属性
+只要在方法的前面加上 @classmethod就是类方法，
+类方法：对类属性进行修改。
+class Test(object)：
+    num = 0 #类属性
+
+    def __init__(self): #实例方法，有self的
+        self.age = 1    #实例属性
+    
+    def name2(self):    #实例方法
+        print(self.age)
+    
+    @classmethod        #类方法（装饰器），将类名传入，对类属性进行修改操作
+    def name(cls,newnum): 
+        cls.num = newnum
+
+    @staticmethod       #静态方法，没有self 函数不涉及self
+    def printTest():
+        print("asd")
+
+t1 = Test()
+Test.name() #使用类方法直接对类属性进行修改
+t1.name() #对象也可以调用类方法
+
+Text.printTest() #通过类调用静态方法
+t1.printTest() #通过实例对象来调用静态方法
+#工厂模式：通过添加一个类，使得一个类和其他类或方法解耦
+#工厂方法模式：在基类中定义流程和接口，在子类中定义需要用的功能
+耦合、解耦
+耦合：关系性比较强
+解耦：将耦合性强的关系拆开
+class CarStore(object):
+	def order(self,car_type):
+		return select_car_by_type(car_type) #用一个函数解耦  升级这个函数和类没有关系，解耦
+
+#单例模式：多个引用指向同一个对象
+def __new__(cls): #cls是类指向的类对象，负责创建 就是创建的方法
+def __new__(cls): #完成创建一个对象，调用new方法完成创建对象，然后紧接着调用init方法
+    return super().__new__(cls) #继承父类object
+
+#单例
+class Dog(object):
+    __instance = None #私有属性
+    
+    def __new__(cls):
+        if cls.__instance == None：
+	    cls.__instance == object.__new__(cls) #调用父类的方法完成创建
+            return cls.__new__(cls) #返回这个类的对象
+	else:
+	    return cls.__new__(cls) #若创建一次 返回之前的对象
+#只初始化一次对象
+class Dog(object):
+    __instance = None #私有属性
+    __init_flag = False
+    def __new__(cls,name): #创建的时候需要加参数 ，看实例对象传入参数的个数
+        if cls.__instance == None：
+	    cls.__instance == object.__new__(cls) #调用父类的方法完成创建
+            return cls.__new__(cls) #返回这个类的对象
+		else:
+			return cls.__new__(cls) #若创建一次 返回之前的对象
+    def __init__(self,name):
+		if Dog.__init_flag = False
+			self.name = name
+			Dog.__init_flag = True
+a = Dog("旺财")
+b = Dog("哮天犬") #name 都是旺财  只初始化一次
+# property
+#异常
+try: #捕获异常
+    代码
+except 异常:
+    处理的方式
+捕获多个异常
+try: #捕获异常
+    代码
+except 异常:
+    处理的方式
+except 异常:
+    处理的方式
+except Exception:
+    print（“上面的except没有捕获的异常，这个except一定会捕获到”）
+捕获多个异常
+except (异常1，异常2): py3中用元组
+
+except 异常 as result:#捕获所有异常时不能使用
+    处理的方式
+    print(result) #将异常的基本信息也展示出来
+
+except Exception as result: #捕获所有异常
+else:  
+    #没有捕获try中异常时才会返回
+try:
+    XXX
+finally:
+    XXX #不管捕没捕获 都会执行代码
+
+try:
+    xxxx
+except name1:
+    XXXX
+except:
+    XXXX
+else:
+    没有产生异常时候，做的事情
+finally:
+    任何情况下一定会执行的语句
+
+异常的传递：当一个异常产生的时候，他是怎么传的 调用A-->B--C C有异常 C->B-A 传递，往顶层传递
+
+产生异常，函数结束
+
+自定义异常：首先继承Exception 然后用raise定义
+class error(Exception):
+    def __init__(self,a)
+    self.a = XX
+
+try:
+    raise error(XXX)
+except error as result:
+    print(result.a)
+
+在异常处理中抛出异常：如果出现异常，可以自定义抛出，也可以按照默认抛出
+
+#模块
+一个PY文件当作一个模块
+自己定义模块。
+
+__name__ #在其他文件调用时，打印当前模块的名字；在自己的文件里显示__main__
+def main(): #最开始执行的地方
+if __name__ =='__main__':
+   main  #测试时用的代码
+
+__pycache__ 编译之后的缓存
+__all__ = ['A','B'] #from 模块 import * *只能导入AB,AB为函数名，不加括号 类 全局变量都可以加
+
+包：把相关联的PY文件放到一个文件夹里，就叫包
+在文件里创建__init__的py文件，，在__init__里 加上 __all__=["test"] 和from . import sendmsg 设定可以用的函数等，就可以调用文件下的模块了
+可以加print等  
+#安装包
+在文件夹创建 setup.py
+输入  from distutiles.core import setup
+setup(name = "",version = "",description = "",author = "",py_modules = ["text.text1"]) #当前包的名字.模块
+然后 python setup.py build
+python setup.py sdist 生成有gz文件
+然后解压 ，在解压文件夹cd
+然后 python setup.py install 
+
+
+给程序参数：
+import sys
+print(sys.argv) #给程序传参数,在cmd里输入 python XX.py a b c 运行程序时，返回['XX.py','a','b','c']
+name = sys.argv[:]
+print(" %s"%name) #打印a
+
+import A.B  #调入A文件中的B模块
+A.B.C #调用B模块中的C功能
+
+#重新导入模块，刷新模块的功能
+from imp import *
+reload(module) #module增加功能之后，重新导入，刷新功能
+#不要陷入循环导入
+#防止模块循环导入
+import os
+os.__file__ #查看模块的位置 进一步查看函数源代码
+=、is
+==判断值是不是相等
+is 判断是不是指向同一个东西（值在在一个区间内可以相同 e.g:a = 100,b =100）
+#调试 pdb
+执行调试：python3 -m pdb filename.py
+l 显示代码
+n 执行下一步
+c 继续执行代码，相当于没用pdb
+b 7 断点调试到第7行 摁c执行
+cl 摁b 查看断点 输入第几个断点 清除断点
+s 到一行代码是函数时，想看函数 进入到一个函数
+ p a打印一个变量的值
+ a打印所有的影响 
+q 退出调试
+r 快速执行到函数的最后一行
+交互调试：import pdb
+pdb.run("hanshuming(11,22)") 再进入调试模式
+程序里埋点
+import pdb
+pdb.set_trace() #程序里遇到这句话就调试
+日志调试：
+
+断点 执行到某一行代码停止
+多任务：多个进程
+调度算法：
+时间片轮转：每个应用运行很短时间，进行下一个，进行轮转，看起来应用是不间断的。
+优先级调度：默认系统优先级较高
+并发：看上去一起执行 并行：真正一起执行
+#进程的创建
+编写完毕的代码，在没有运行的时候，称之为程序
+正在运行着的代码，称之为进程
+fork():#完成多任务，能产生另一个进程，创建多任务
+import os
+ret = os.fork() #创建多任务
+print('haha')
+e.g:
+import os #只能在LINUEX系统是使用fork()
+ret = os.fork() #创建一个子进程，父（主）进程ret>0,子进程ret=0
+if ret == 0:#子进程的执行代码
+	while True:
+		print("--1--")
+else:#父（注）进程执行的代码
+	while True:
+		print("--2--")
+父进程中的fork的返回值，就是刚刚创建出来的子进程的PID
+os.getpid() #获取当前进程的值，进程的id号
+os.getppid() #打印子类的父类PID号
+只要主进程执行完了，终端命令行提示就出来
+父进程和子进程中里面的所有的东西（全局变量、局部变量）相互独立，互不干扰。可能是小小的缺点，可利用进程中的通讯联系。
+多个fork() 子进程的父子进程 子进程的子进程 孙进程 子进程的父进程 子进程
+processing创建子进程：windows ubuntu跨平台使用
+from multiprocessing import Process #等着所有的子进程结束父进程才结束
+import time
+def test():
+	while True:
+		print("test")
+		time.sleep(1)
+
+p = Process(target=test) #执行test()代码
+p.start() #让这个进程开始执行test函数里的代码
+p.join(num) #堵塞 等p完成之后才能继续进行，要不然和主进程一起进行,num为等待的最长时间
+p.terminate() #不管子进程任务是否完成，立即终止
+while True:
+	print("main")
+	time.sleep(1)	
+#进程池 Pool 初始化Pool时可以指定一个最大进程数，当有新请求提交到Pool时，如果还没满，就会创建一个新的进程来执行请求，满了会等待
+from multiprocessing import Pool
+import os
+import time 
+po = Pool(3)
+def work(ma):
+    
+po.apply_async(work,(i,)) #若有参数，用元组传参数,可以用循环语句添加进程
+po.close() #关闭po进程
+po.join() #等待po池中所有的进程执行完成，必须放在close语句之后
+
+po.apply(work) #堵塞式添加方式，等到上一个任务执行完之后才会添加新任务
+##多线程  多线程调用的函数不能用return返回值
+import threading
+threading.active_count() #获取已激活的线程数
+threading.enumerate() #查看所有线程信息
+threading.current_thread() #	查看现在正在运行的线程
+添加线程，threading.Thread()接收参数target代表这个线程要完成的任务，需自行定义
+def thread_job():
+    print('This is a thread of %s' % threading.current_thread())
+def main():
+    thread = threading.Thread(target=thread_job,)   # 定义线程 
+    thread.start()  # 让线程开始工作
+#传递参数
+thread_ob = threading.Thread(target=print,args=['Cat','Dog','Frogs'],kwargs={'sep':'%'}) #Cat%Dog%Frogs
+thread_ob.start()
+#控制线程的执行顺序
+thread_1.start()
+thread_1.join() # notice the difference!
+thread_2.start()
+print("all done\n")
+T1 start
+T1 finish
+T2 start
+all done
+T2 finish
+
+thread_1.start() # start T1
+thread_2.start() # start T2
+thread_2.join() # join for T2
+thread_1.join() # join for T1
+print("all done\n") 
+"""
+T1 start
+T2 start
+T2 finish
+T1 finish
+all done
+"""
+
+thread_1.start()
+thread_2.start()
+thread_1.join() # notice the difference!
+print("all done\n")
+"""
+T1 start
+T2 start
+T2 finish
+T1 finish
+all done
+"""
+#储存进程结果 Queue 多线程调用的函数不能用return返回值
+import threading
+import time
+from queue import Queue
+
+############多进程Multiprocessing 发挥电脑多核系统优势
+#导入线程进程标准模块 
+import multiprocessing as mp
+#定义一个被线程和进程调用的函数 
+def job(a,d):
+    print('aaaaa')
+p1 = mp.Process(target=job,args=(1,2)) #创建线程和进程 
+p1.start() # 启动多进程
+p1.join()  # 连接多进程
+#存储进程输出 Queue的功能是将每个核或线程的运算结果放在队里中， 等到每个线程或核运行完毕后再从队列中取出结果， 继续加载运算。
+#该函数没有返回值！！！
+import multiprocessing as mp
+def job(q):
+    res=0
+    for i in range(1000):
+        res+=i+i**2+i**3
+    q.put(res)    #q 就像一个队列，用来保存每次函数运行的结果
+if __name__=='__main__':
+    q = mp.Queue()
+    p1 = mp.Process(target=job,args=(q,)) #参数后面需要加一个逗号
+    p2 = mp.Process(target=job,args=(q,))
+    p1.start()
+    p2.start()
+    p1.join()
+    p2.join()
+    res1 = q.get()
+    res2 = q.get()
+    print(res1+res2)
+#进程池Pool() 和 map() Pool和之前的Process的不同点是丢向Pool的函数有返回值，而Process的没有返回值。
+import multiprocessing as mp
+def job(x):
+    return x*x
+def multicore():
+    pool = mp.Pool(processes=3)  #定义一个进程池 Pool默认大小是CPU的核数，传入processes参数可自定义核数量，
+    res = pool.map(job, range(10)) #将range(10)中的每一个值传入进程池中的job中运行 它会自动分配给CPU核，返回结果
+    print(res) 
+    res = pool.apply_async(job, (2,)) #只能传递一个值，它只会放入一个核进行运算，但是传入值时要注意是可迭代的
+    # 用get获得结果
+    print(res.get())
+    # 迭代器，i=0时apply一次，i=1时apply一次等等 
+    multi_res = [pool.apply_async(job, (i,)) for i in range(10)] #用 apply_async() 输出多个结果
+    # 从迭代器中取出
+    print([res.get() for res in multi_res])
+multicore()
+#共享内存 用共享内存才能让CPU之间有交流 多核间分享全局变量
+import multiprocessing as mp
+value1 = mp.Value('i', 0) #第一个参数用来设置数据类型 
+array = mp.Array('i', [1, 2, 3, 4]) #它只能是一维
+#进程lock 保证运行时一个进程的对锁内内容的独占
+def job(v, num, l): 
+    l.acquire() # 锁住
+    for _ in range(5):
+        time.sleep(0.1) 
+        v.value += num # 获取共享内存
+        print(v.value)
+    l.release() # 释放
+
+def multicore():
+    l = mp.Lock() # 定义一个进程锁
+    v = mp.Value('i', 0) # 定义共享内存
+    p1 = mp.Process(target=job, args=(v,1,l)) # 需要将lock传入
+    p2 = mp.Process(target=job, args=(v,3,l)) 
+    p1.start()
+    p2.start()
+    p1.join()
+    p2.join()
+multicore() #进程锁保证了进程p1的完整运行，然后才进行了进程p2的运行
+
+
+
+
+
+
+
+
+#不同进制转化
+bin(x) #二进制 0b是二进制开头
+oct(x) #八进制 Oo是八进制开头
+hex(x) #十六进制 0x
+int("x",进制) e.g：int("Ox12",16)#16进制转10进制
+位移： 位运算直接操作二进制，省内存，效率高。奇数时先移动后加 
+左移<< 2<<1 一位相当于*2
+右移>> 2>>1 一位相当于/2
+A%B 按位与 2个二进制位只要有0就是0，都为1是1
+A|B 按位或 有1则1 都0为0
+A^B 按位异或 不同为1 相同为0
+~A 010101 变为101010
+私有化：
+__num,_num  #from module import* 的时候 _num进不来 import module 可以导入
+_x #私有化属性或方法 from X import * 禁止访问
+__x#避免与子类的属性名冲突 无法在外部直接访问
+xx_ #避免与关键字冲突
+迭代器：可迭代对象，集合类list\dict\set\tuple\str还有生成器，yield和generator function

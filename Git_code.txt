@@ -1,0 +1,46 @@
+Git工作区域
+git仓库（最终确定的文件保存到仓库，成为一个新版本，并且对他人可见）
+暂存区（暂存已经修改的文件最后同意提交到git仓库）
+工作区（添加，编辑，修改）
+git config --list  #查看
+#在 Terminal (Windows 的 git bash) 中把当前目录调到这个文件夹 
+$ cd ~/Desktop/gitTUT 
+
+#设定名称和邮箱 记录修改的人 初始化信息
+git config --global user.name "chinajizhipeng"
+git config --global user.email "chinajizhipeng@163.com"
+
+#建立git管理文件 建立git仓库
+$ git init
+
+#查看隐藏的git管理文件
+$ ls -a
+
+#新建py文件
+$ touch 1.py
+
+#status 来查看版本库的状态，如果有修改的地方则显示:
+$ git status 
+
+#使用 add 把它添加进版本库 (staged)（暂存区）:
+$ git add 1.py
+# 再次查看状态 
+$ git status
+
+
+#提交这次的改变, 并在 -m 自定义这次改变的信息（提交到git仓库）:
+$ git commit -m "描述"
+
+##删除文件
+#1、删除
+rm 1.py
+#2、删除git中的文件
+git rm 1.py 
+#3.提交操作
+git commit -m "描述"
+
+##GIT管理远程仓库
+#Git克隆
+git clone 仓库地址
+#修改
+#git push 

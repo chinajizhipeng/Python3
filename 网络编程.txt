@@ -1,0 +1,89 @@
+协议：不同终端之间的网络共享
+TCP/IP协议。
+链路层——网络层——传输层——应用层
+物理层——数据链路层——网络层——传输层——会话层——表示层——应用层
+端口：用来标记某个进程的东西，区分那个进程
+如果一个进程需要首发网络数据，那么就需要有这样的端口。
+IP：唯一标记一台地址。
+socket（插口）套接字:通过网络使IP之间相互访问的方式。
+import socket
+s1 = socket.socket(socket.AF_INET,socket.SOCK_STREAM) #TCP套接字 慢、稳定 理解为打电话
+s2 = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #UDP套接字  快、不稳定 理解为写信
+
+from socket import *
+udpSocker = socket(AF_INET,SOCK_DGRAM)
+udpSocker.sendto(b'HHH',("172.26.250.1",8080)) #py3要加b 使用udp发送的数据，在每一次的是都需要写上接收方的ip和port
+.encode('utf-8') #py3就不用加b了
+.encode('gb2312') #中文就不乱码了
+在一个操作系统中，不允许端口相同。
+udp绑定信息。让应用绑定固定的端口。
+udpSocker = socket(AF_INET,SOCK_DGRAM)
+udpSocker.bind(('',7788))
+udpSocker.sendto(b'HHH',("172.26.250.1",8080)) #一般请求方不用绑定，接收方需要绑定
+#接收
+udpSocker = socket(AF_INET,SOCK_DGRAM)
+udpSocker.bind(('',7788))
+rev_data = udpSocker.recvfrom(1024) #最多收取1024个字节
+print(rev_data) #可以解码rev_data.decode('gb2312')
+#单工（广播） 半双工（传呼机） 全双工（电话）
+TFTP:简单文件传输协议
+#udp广播 只有udp有广播
+#udp 用户数据包协议 不稳定 udp在每次发送都需要填写ip和port
+#tcp 传输控制协议 稳定 只要链接成功 就可以一直首发信息 除非主动断开
+#TCP服务器
+severSocket = socket(AF_INET,SOCK_STREAM)
+severSocket.bind(("",8899))#绑定本地IP和端口
+severSocket.listen(5) #最多有5个客户端同时发送数据
+clientSocket,clientInfo = severSocket.accept() #返回值是元组（新的套接字，IP及端口号） 新的套接字才是真正收发数据的套接字
+recvData = clientSocket.recv(1024) 
+print("%s:%s"%(str(clientInfo),recvData))
+clientSocket.close()
+severSocket.close()
+#TCP客户端 客户端只有一个套接字 
+from socket impo *
+tcpSocket = socket(AF_INET,SOCK_STREAM)
+clientSocket.connect(('IP',8989)) #链接服务器的IP和端口
+clientSocket.send('hahaha',encode('gb2312'))
+recvData = clientSocket.recv(1024)
+print("recvData:%s"%recvData)
+clientSocket.close()
+交换机只能链接同一网段的电脑
+路由器能将不同的网段的电脑链接起来，使之能够通信。
+MAC地址在两个设备之间通信时在变化。
+IP地址在整个通信过程中都不会发生变化。
+netmask:网络掩码，和ip地址一起确定网络号。
+默认网关：发送的ip不在同一个网段内，那么会把这个数据转发给默认网关。
+DNS就是解析域名的协议。
+访问baidu.com的过程
+1、先要解析出baidu.com对应的ip地址
+ 1、先要知道默认网关的mac地址
+  使用arp获取默认网关的mac地址
+ 2、组织数据 发送给默认网关（ip还是DNS服务器的ip，但是mac地址是默认网关的mac dizhi ）
+ 3、默认网关拥有转发数据的能力，把数据转发给路由器
+ 4、路由器根据自己的协议，选择一个合适的路径，转发数据给目的网关
+ 5、目的网关（dns服务器所在的网关）把数据给DNS服务器
+ 6、DNS服务器查询解析出baidu.com对应的IP地址，并把它原路返回给请求这个域名的client
+2、得到ip之后发送tcp的三次握手，进行连接
+3、使用http协议发送请求数据给web服务器
+4、web服务器收到数据请求后，通过查询自己的服务器得到相应的结果，原路返回给浏览器
+5、浏览器街道数据后，通过自己的浏览器的渲染功能来访问这个网页
+6、浏览器关闭tcp链接，四次挥手
+完成整个访问。
+在TCP中，如果一方收到了对方的数据，一定会发送ack确定包给发送方，而在UDP中没有这个过程，因此导致tcp稳定而udp不稳定
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
