@@ -4,89 +4,87 @@ import pandas as pd
 import matplotlib.pyplot as plt
 ##数据加载、储存与文件格式 《利用PY进行数据分析167》
 pd.read_csv()
-pd.read_csv('',header=None) #不要文件的列名，PD默认分配
-pd.read_csv('',names=['a'.'b']) #
-pd.read_csv('',index_col=['key1','ker2']) #层次化索引
-pd.read_csv('',skiprows=[0,2,3]) #跳过第一、三、四行
-pd.read_csv('',na_values=["NULL"]) #表示缺失值的字符串
-pd.read_csv('',nrows=5) #读取5行
+pd.read_csv('',header=None) 				#不要文件的列名，PD默认分配
+pd.read_csv('',names=['a','b']) 			#列名命名为a,b
+pd.read_csv('',index_col=['key1','ker2']) 	#层次化索引
+pd.read_csv('',skiprows=[0,2,3]) 			#跳过第一、三、四行
+pd.read_csv('',na_values=["NULL"]) 			#表示缺失值的字符串
+pd.read_csv('',nrows=5) 					#读取5行
 pd.read_table()
 pd.read_table('',sep=',')
 pd.read_fwf()
 pd.read_clipboard()
-df.to_csv('') #将数据写到一个以逗号分隔的文件中
-df.to_csv('',sep='|') #以|分隔
-df.to_csv('',na_rep='NULL') #缺失值以NULL表示
-df.to_csv('', index=False, header=False) #不显示索引和列标签
-df.to_csv('', index=False, columns=['a', 'b', 'c']) #写出一部分列，并指定列标签
+df.to_csv('') 								#将数据写到一个以逗号分隔的文件中
+df.to_csv('',sep='|') 						#以|分隔
+df.to_csv('',na_rep='NULL') 				#缺失值以NULL表示
+df.to_csv('', index=False, header=False) 	#不显示索引和列标签
+df.to_csv('', index=False, columns=['a', 'b', 'c']) 		#写出一部分列，并指定列标签
 #Series读写
-ts.to_csv() #输出csv
+ts.to_csv() 								#输出csv
 Series.from_csv()
-#读取XLS文件
+#读取XLS文件 用pd读比较好
 import xlrd,openpyxl
 xlsfile = pd.ExcelFile('')
-table = xlsfile.parse('sheet1') #读取表1
+table = xlsfile.parse('sheet1') 			#读取表1
 #固定类型数组
-array.('i',ob) #i为整数型
-np.array(ob,dtype = 'float32') #浮点数类型 Numpy数据类型《利用PY进行数据分析》86
-np.zeros(10) #创建长度为10的数组 ，全为0
-np.ones(10) #全为1
-np.full((3,5),3.14) #3*5矩阵 全为3.14
-np.arange(0,20,2) #0,2,4...
-np.linspace(0,1,5) #5个数均匀的分布在0-1
-np.random.random(size=(3,3)) #0-1均匀分布的3*3矩阵
-np.random.normal(0, 1, (3,3)) #正太分布0-1
-np.random.randint(0, 10, (3,3)) #随机0-10
-np.eye() #单位矩阵
-np.column_stack((a,b)) #列组合
-b.ndim  #给出数组的维数
-d.size  #给出数组元素的个数
-d.itemsize #给出数组中的元素在内存中所占的字节数
-d.nbytes #真哥数组所占的存储空间
-x1 = np.random.randint(10, size=6)  # One-dimensional array
-x2 = np.random.randint(10, size=(3, 4))  # Two-dimensional array
+											#i为整数型
+np.array(ob,dtype = 'float32') 				#浮点数类型 Numpy数据类型《利用PY进行数据分析》86
+np.zeros(10) 								#创建长度为10的数组 ，全为0
+np.ones(10) 								#全为1
+np.full((3,5),3.14) 						#3*5矩阵 全为3.14
+np.arange(0,20,2) 							#0,2,4...
+np.linspace(0,1,5) 							#5个数均匀的分布在0-1
+np.random.random(size=(3,3)) 				#0-1均匀分布的3*3矩阵
+np.random.normal(0, 1, (3,3)) 				#正太分布0-1
+np.random.randint(0, 10, (3,3)) 			#随机0-10
+np.eye() 									#单位矩阵
+np.column_stack((a,b)) 						#列组合
+d.ndim                                      #给出数组的维数
+d.shape 									#给出维度
+d.size  									#给出数组元素的个数
+d.itemsize 									#给出数组中的元素在内存中所占的字节数
+d.nbytes 									#数组所占的存储空间
+x1 = np.random.randint(10, size=6)  		#One-dimensional array
+x2 = np.random.randint(10, size=(3, 4))  	#Two-dimensional array
 x3 = np.random.randint(10, size=(3, 4, 5))  # Three-dimensional array
 display()
-print("x3 ndim: ", x3.ndim)  #数组的维度
-print("x3 shape:", x3.shape) #每个维度的大小
-print("x3 size: ", x3.size)  #数组的总大小
-print("dtype:", x3.dtype) #数组的数据类型
-print("itemsize:", x3.itemsize, "bytes") #每个数组元素的大小
-print("nbytes:", x3.nbytes, "bytes")     #数组总字节的大小
-ob[x,y,z] #多维数组总用逗号分隔的索引数组获取元素
-b.ravel() #将多维度数组展平
-b.flatten() #展平
+print("dtype:", x3.dtype) 					#数组的数据类型
+print("itemsize:", x3.itemsize, "bytes") 	#每个数组元素的大小
+print("nbytes:", x3.nbytes, "bytes")     	#数组总字节的大小
+ob[x,y,z] 									#多维数组总用逗号分隔的索引数组获取元素
+b.ravel() 									#按行展平
+b.flatten("F") 								#按列展平
 b.shape = (3,2)
 b.reshape(2,3)
-b.resize(2,3) #直接改变
-b.transpose() #转置
+b.resize(2,3) 								#改变原值
+b.transpose() 								#转置
 #切片 数组切片返回的是数组数据的试图，不是数值数据的副本
 ob[x:y:z]
-ob[::2] #每隔两个取一次
-x2[:2, :3]  # two rows, three columns #多维
-x2[:3, ::2]  # all rows, every other column
+ob[::2] 									#每隔两个取一次
+x2[:2, :3]  								# two rows, three columns #多维
+x2[:3, ::2]  								# all rows, every other column
 x2[::-1, ::-1]
-x2_copy=x[:2,:2].copy() #创建副本 不修改值
-grid = np.arange(1, 10).reshape((3, 3)) #数组变形，返回非副本视图
-x[np.newaxis, :] #获取行向量
-x[:, np.newaxis] #获取列向量
-np.concatenate([x, y]) #一维 轴向合并
-np.concatenate([grid, grid], axis=1) #二维，第一个轴0 第二个轴1
-np.vstack(array) #垂直化
-np.vstack([x, grid]) #垂直栈数组链接，变成一维
-np.hstack([grid, y]) #水平栈数组链接，变成一维
-np.dstack() #按照第三个维度拼接
-ob.repeat(2)
+x2_copy=x[:2,:2].copy() 					#创建副本 不修改值
+grid = np.arange(1, 10).reshape((3, 3)) 	#数组变形，返回非副本视图
+x[np.newaxis, :] 							#获取行向量
+x[:, np.newaxis] 							#获取列向量
+np.concatenate([x, y]) 						#一维 轴向合并
+np.concatenate([grid, grid], axis=1) 		#二维，第一个轴0 第二个轴1
+np.vstack(array) 							#垂直化
+np.vstack([x, grid]) 						#垂直栈数组链接，变成一维
+np.hstack([grid, y]) 						#水平栈数组链接，变成一维
+np.dstack() 								#按照第三个维度拼接
+ob.repeat(2)								#变为1维
 ob.repeat([2,3,4])
-ob.repeat(2,axis=0) #
-np.msort(name) #np排序
-np.where(logreturn>0) #返回大于零的索引
+ob.repeat(2,axis=0) 						#对列复制 和 行复制
+np.msort(name) 								#np排序
+np.where(logreturn>0) 						#返回大于零的索引
 #数组的分裂
-np.split(x, [3, 5]) #0-2行，3-4行，5： 行切分
-left, right = np.hsplit(grid, [2]) #从第2列裂开
-left, right = np.vsplit(grid, [2]) #从第2行裂开
-np.hsplit(a,3) #沿着水平方向分割为3个相同大小的子数组
-np.vsplit(a,3) #沿着垂直方向分割为3个相同大小的子数组
+np.split(x, [3, 5]) #						0-2行，3-4行，5： 行切分
+left, right = np.hsplit(grid, [2]) 			#从第2列裂开
+left, right = np.vsplit(grid, [2]) 			#从第2行裂开
+np.hsplit(a,3) 								#沿着水平方向分割为3个相同大小的子数组
+np.vsplit(a,3) 								#沿着垂直方向分割为3个相同大小的子数组
 
 #通用函数
 +	np.add	        Addition (e.g., 1 + 1 = 2)
@@ -99,18 +97,18 @@ np.vsplit(a,3) #沿着垂直方向分割为3个相同大小的子数组
 %	np.mod	        Modulus/remainder (e.g., 9 % 4 = 1)
 n1 + 1
 np.add(nq,1)
-a.absolute #绝对值
+a.absolute 						#绝对值
 np.log1
 np.exp1
-np.power(2,x,out=y) #将结果储存在y中 #xy长度一样
-np.power(2,x,out=y[::2]) #每隔2元素储存一次
+np.power(2,x,out=y) 			#将结果储存在y中 #xy长度一样
+np.power(2,x,out=y[::2]) 		#每隔2元素储存一次
 #聚合
-np.add.reduce(x)            #累计相加
+np.add.reduce(x)            #累计相加，可加axis
 np.add.reduce(q1,axis=1)    
 np.multiply.reduce(x)       #累计相乘
 np.add.accumulate(x)        #累计相加，储存每次计算的中间结果
 np.multiply.accumulate(x)   #累计相乘，储存每次计算的中间结果
-np.multiply.outer(x,y) #获得两个数组所有元素对的函数运算结果
+np.multiply.outer(x,y) 		#获得两个数组所有元素对的函数运算结果
 #NP中可用的聚合函数，多维聚合中添加维度，ig:M.min(axis=0) #每列的最小值
 Name	        NaN-safe Version	Description
 np.sum	        np.nansum	        Compute sum of elements
@@ -130,52 +128,50 @@ np.percentile(heights, 25) #25百分位
 #布尔掩码
 #比较操作的通用函数
 ==	np.equal		!=	np.not_equal
-<	np.less		        <=	np.less_equal
+<	np.less		    <=	np.less_equal
 >	np.greater		>=	np.greater_equal
 x < 3 #返回布尔数组
-np.count_nonzero(x < 6) #返回个数
-np.count_nonzero(q1 > 6,axis = 0) #列方向
-np.sum(x<6,axis=1) #返回每一列小于6的个数，x为布尔数组
+np.count_nonzero(x < 6) 			#返回个数
+np.count_nonzero(q1 > 6,axis = 0) 	#列方向
+np.sum(x<6,axis=1) 					#返回每一列小于6的个数，x为布尔数组
 np.any()
 np.all()
 np.sum(x>1) & (x<0)
 &	np.bitwise_and		|	np.bitwise_or
 ^	np.bitwise_xor		~	np.bitwise_not
-x[x>5] #返回子数据集，即掩码操作
+x[x>5] 								#返回子数据集，即掩码操作
 #排序
-ob.sort() #直接对原来的对象进行操作，原来的数据进行操作
-np.sort(ob) #不对原来的数据进行修改
-np.sort(ob,axis=0) #二维按列排序 
-np.sort(ob,axis=1) #二维按行排序
-np.argsort() #返回的是原始数组排好序的索引值
+ob.sort() 							#直接对原来的对象进行操作，原来的数据进行操作
+np.sort(ob) 						#不对原来的数据进行修改
+np.sort(ob,axis=0) 					#二维按列排序 
+np.sort(ob,axis=1) 					#二维按行排序
+np.argsort() 						#返回的是原始数组排好序的索引值
 
 #部分排序，分隔
-np.partition(x,3) #最左侧返回第3小的值，剩下的随机  为负时想要最大的k个数
-np.partition(x,2,axis=1) #二维最左侧返回前2小的值，剩下的随机
+np.partition(x,3) 					#最左侧返回第3小的值，剩下的随机  为负时想要最大的k个数
+np.partition(x,2,axis=1) 			#二维最左侧返回前2小的值，剩下的随机
 #np读取csv
 import pandas as pd
 data = pd.read_csv('')
-np1 = np.array(data['asd']) #读取data中的asd变量
+np1 = np.array(data['asd']) 		#读取data中的asd变量 变成数组
 ###Pandas
 import numpy as np
 import pandas as pd
-#numpy
-
 #Series
-ob = pd.Series(data,index=index) #生成Series对象,data是列表或者NP数组
-ob.values #返回的结果是Numpy数组
-ob.index #读取索引标签
-ob.index.is_unique #索引值是否唯一
+ob = pd.Series(data,index=index) 	#生成Series对象,data是列表或者NP数组
+ob.values 							#返回的结果是Numpy数组
+ob.index 							#读取索引标签
+ob.index.is_unique 					#索引值是否唯一
 ob=pd.Series([1,1,1],index=['a','b','c']) #可自定义索引值
-pd.Series(dict) #将数组转化为Series对象
+pd.Series(dict) 					#将数组转化为Series对象
 data['b']
 data['e'] = 1.25
-data['a':'c'] #slicing by explicit index，包含最后一个索引
-data[0:2]     # slicing by implicit integer index 不包含最后一个索引
-data[(data > 0.3) & (data < 0.8)] #掩码
-data[['a', 'e']] #花式切片
-data.loc[1:3] #显示索引 ，给索引值 闭区间
-data.iloc[1:3] #隐示索引 #推荐 半开区间
+data['a':'c'] 						#slicing by explicit index，包含最后一个索引
+data[0:2]     #slicing by implicit integer index 不包含最后一个索引
+data[(data > 0.3) & (data < 0.8)] 	#掩码
+data[['a', 'e']] 					#花式切片
+data.loc[1:3] 						#显示索引 ，给索引值 闭区间
+data.iloc[1:3] 						#隐示索引 #推荐 半开区间
 'b' in obj2 #索引是否再
 zd ={}
 ob = Series(zd) #通过字典创建Series
