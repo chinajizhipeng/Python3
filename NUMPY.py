@@ -1,4 +1,4 @@
-import array
+ import array
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -29,6 +29,7 @@ table = xlsfile.parse('sheet1') 			#读取表1
 #固定类型数组
 											#i为整数型
 np.array(ob,dtype = 'float32') 				#浮点数类型 Numpy数据类型《利用PY进行数据分析》86
+np.array(a_list)							#将list类型变为array类型
 np.zeros(10) 								#创建长度为10的数组 ，全为0
 np.ones(10) 								#全为1
 np.full((3,5),3.14) 						#3*5矩阵 全为3.14
@@ -56,6 +57,8 @@ b.ravel() 									#按行展平
 b.flatten("F") 								#按列展平
 b.shape = (3,2)
 b.reshape(2,3)
+b.reshape(3,-1)								#变成三行
+b.reshape(-1,3)								#变成三列
 b.resize(2,3) 								#改变原值
 b.transpose() 								#转置
 #切片 数组切片返回的是数组数据的试图，不是数值数据的副本
@@ -172,58 +175,58 @@ data[(data > 0.3) & (data < 0.8)] 	#掩码
 data[['a', 'e']] 					#花式切片
 data.loc[1:3] 						#显示索引 ，给索引值 闭区间
 data.iloc[1:3] 						#隐示索引 #推荐 半开区间
-'b' in obj2 #索引是否再
+'b' in obj2 						#索引是否再
 zd ={}
-ob = Series(zd) #通过字典创建Series
-ob1+b2 #在算术运算中自动对齐索引
-ob.name = 'pop' #Series本身命名
-ob.index.name = 'stata' #为索引命名 和Pandas关系密切
-ob.value_counts() #返回Series的唯一值
-ob[ob.isin(['c','a'])] #ob中返回c a 的值
+ob = Series(zd) 					#通过字典创建Series
+ob1+b2 								#在算术运算中自动对齐索引
+ob.name = 'pop'						#Series本身命名
+ob.index.name = 'stata' 			#为索引命名 和Pandas关系密切
+ob.value_counts() 					#返回Series的唯一值
+ob[ob.isin(['c','a'])] 				#ob中返回c a 的值
 ##DataFrame
 #读取json文件
 DF = DataFrame(JSONNAME[DATA],columbs=['name','age'])
-df.astype(int) #转换为整数类型
+df.astype(int) 						#转换为整数类型
 pd.DataFrame('colname1':Series1,'colname2':Series2)
 pd.DataFrame({'A':[1,2,3],'B':['a','b','c']})
-df.index #获取索引标签
-df.columns #存放列标签
+df.index 							#获取索引标签
+df.columns 							#存放列标签
 pd.DataFrame(data, columns=['year', 'state', 'pop']) #data为数组
 #直接使用中括号时，索引表示的是列索引，切片表示的是行切片
-df['area'] #检索列，是Series 中括号或者属性是用来访问列
-df.area #使用属性形式选择纯字符串列名
+df['area'] 							#检索列，是Series 中括号或者属性是用来访问列
+df.area 							#使用属性形式选择纯字符串列名
 df['density'] = data['pop'] / data['area'] #根据列增加列
 df.columns = ['state', 'year','ok'] #修改列名
 val=Series([],index=[])
-df['A']= val #根据索引为df增加一列
-df.drop(columns='A') #删除A列
-frame2['A'] = frame2.B == 'b' #若B值为b，则为True
-df.values[0] #返回第一行
+df['A']= val 						#根据索引为df增加一列
+df.drop(columns='A') 				#删除A列
+frame2['A'] = frame2.B == 'b' 		#若B值为b，则为True
+df.values[0] 						#返回第一行
 #标签的切片运算是闭区间的,对于切片而言没有单独列切片
-df.iloc[:,:2] #列切片
-df.iloc[:3, :2] #前两个标签列
+df.iloc[:,:2] 						#列切片
+df.iloc[:3, :2] 					#前两个标签列
 df.iloc[:,:2] 
-df.iloc[1:3] #第二第三行，左开右闭
-df.loc[:'Illinois', :'pop'] #逗号前是索引，逗号以后是标签列
-df.loc[['a','b']] #检索行
-df['A']['a'] #元素检索，先列后行
-df.loc['c']['A'] #元素检索，先行后列 检索行的时候，参数可以是多个，但是列不行
-df.loc['c','A'] #元素检索，先行后列
-df.loc[data.density > 100, ['pop', 'density']] #掩码
+df.iloc[1:3] 						#第二第三行，左开右闭
+df.loc[:'Illinois', :'pop'] 		#逗号前是索引，逗号以后是标签列
+df.loc[['a','b']] 					#检索行
+df['A']['a'] 						#元素检索，先列后行
+df.loc['c']['A'] 					#元素检索，先行后列 检索行的时候，参数可以是多个，但是列不行
+df.loc['c','A'] 					#元素检索，先行后列
+df.loc[data.density > 100, ['pop', 'density']] 	#掩码
 df.iloc[0,2] = 90
 df[df.density > 100]
 df[df['A'] > 5]
-df1['q'].loc['a']=99 #q列a行
-d = data[['year','midu']].copy() #选择标签列
-data.ix('a',['A','B']) #索引a，AB列标签的值
+df1['q'].loc['a']=99 				#q列a行
+d = data[['year','midu']].copy() 	#选择标签列
+data.ix('a',['A','B']) 				#索引a，AB列标签的值
 data.loc[data.index=='Florida', ['area', 'pop']]#选择标签为,列为
-ob2 = ob.reindex([index]) #根据index重新排序
-ob2 = ob.reindex([index],fill_value=0) #根据index重新排序,没有的索引赋值为0
-ob2 = ob.reindex([index],method='ffill') #根据index重新排序,没有索引的值前向填充
-ob.drop('c') #删除ob索引c项
-ob.drop(['c','d']) #删除索引cd项
-ob.drop('c',axis=1) #删除ob的c列
-ob.drop(['c','d'],axis=1) #删除ob的cd项
+ob2 = ob.reindex([index]) 			#根据index重新排序
+ob2 = ob.reindex([index],fill_value=0) 			#根据index重新排序,没有的索引赋值为0
+ob2 = ob.reindex([index],method='ffill') 		#根据index重新排序,没有索引的值前向填充
+ob.drop('c') 						#删除ob索引c项
+ob.drop(['c','d']) 					#删除索引cd项
+ob.drop('c',axis=1) 				#删除ob的c列
+ob.drop(['c','d'],axis=1) 			#删除ob的cd项
 #Pandas数值运算方法
 #axis=0,以列为单位操作，参数必须是列
 #axis=1,以行为单位操作，参数必须是行
