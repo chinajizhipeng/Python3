@@ -2,7 +2,12 @@ import pandas as pd
 import numpy as np
 from pandas import Series,DataFrame
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+#可以输出中文
+mpl.rcParams['font.sans-serif'] = [u'SimHei']
+mpl.rcParams['axe.unicode_minus'] = False
 plt.show() #显示图片
+
 ##数据可视化
 ############################
 #折线图

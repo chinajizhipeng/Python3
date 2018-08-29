@@ -33,8 +33,9 @@ np.array(a_list)							#将list类型变为array类型
 np.zeros(10) 								#创建长度为10的数组 ，全为0
 np.ones(10) 								#全为1
 np.full((3,5),3.14) 						#3*5矩阵 全为3.14
-np.arange(0,20,2) 							#0,2,4...
-np.linspace(0,1,5) 							#5个数均匀的分布在0-1
+np.arange(0,20,2) 							#0,2,4... 可用0.5
+np.linspace(0,1,5) 							#5个数均匀的分布在0-1 endpoint=True
+d = np.logspace(1,2,10,endpoint=True,base = 10)		#等比 1为10 2为10的2次方 100 10个数等比 
 np.random.random(size=(3,3)) 				#0-1均匀分布的3*3矩阵
 np.random.normal(0, 1, (3,3)) 				#正太分布0-1
 np.random.randint(0, 10, (3,3)) 			#随机0-10
@@ -45,6 +46,7 @@ d.shape 									#给出维度
 d.size  									#给出数组元素的个数
 d.itemsize 									#给出数组中的元素在内存中所占的字节数
 d.nbytes 									#数组所占的存储空间
+np.dot(a,b)									#矩阵相乘
 x1 = np.random.randint(10, size=6)  		#One-dimensional array
 x2 = np.random.randint(10, size=(3, 4))  	#Two-dimensional array
 x3 = np.random.randint(10, size=(3, 4, 5))  # Three-dimensional array
@@ -58,7 +60,7 @@ b.flatten("F") 								#按列展平
 b.shape = (3,2)
 b.reshape(2,3)
 b.reshape(3,-1)								#变成三行
-b.reshape(-1,3)								#变成三列
+b.reshape(-1,3)								#变成三列 共享内存
 b.resize(2,3) 								#改变原值
 b.transpose() 								#转置
 #切片 数组切片返回的是数组数据的试图，不是数值数据的副本
@@ -66,6 +68,7 @@ ob[x:y:z]
 ob[::2] 									#每隔两个取一次
 x2[:2, :3]  								# two rows, three columns #多维
 x2[:3, ::2]  								# all rows, every other column
+x2[(1,2,3,4),(2,3,4)]						#第2行第3列 ...形成的向量
 x2[::-1, ::-1]
 x2_copy=x[:2,:2].copy() 					#创建副本 不修改值
 grid = np.arange(1, 10).reshape((3, 3)) 	#数组变形，返回非副本视图
@@ -186,7 +189,7 @@ ob[ob.isin(['c','a'])] 				#ob中返回c a 的值
 ##DataFrame
 #读取json文件
 DF = DataFrame(JSONNAME[DATA],columbs=['name','age'])
-df.astype(int) 						#转换为整数类型
+df.astype(int) 						#转换为整数类型 array也可用
 pd.DataFrame('colname1':Series1,'colname2':Series2)
 pd.DataFrame({'A':[1,2,3],'B':['a','b','c']})
 df.index 							#获取索引标签
@@ -230,9 +233,9 @@ ob.drop(['c','d'],axis=1) 			#删除ob的cd项
 #Pandas数值运算方法
 #axis=0,以列为单位操作，参数必须是列
 #axis=1,以行为单位操作，参数必须是行
-df+series #使用列索引进行相加
-df1.add(s1,axis = 0) #想要一列相加时
-df1.loc['a'] += 100 #a行加100
+df+series 							#使用列索引进行相加
+df1.add(s1,axis = 0) 				#想要一列相加时
+df1.loc['a'] += 100 				#a行加100
 A + B #对齐两个对象的索引进行运算，取并集，缺失值存在用NAN填充
 A.add(B, fill_value=0)#自定义A或者B的缺失值
 
